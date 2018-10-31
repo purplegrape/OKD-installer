@@ -1,1 +1,17 @@
+[Unit]
+Description=openshift master Server
+Documentation=https://docs.okd.io/
+After=network.service  
+Requires=network.service  
 
+[Service]
+User=okd
+Group=okd
+WorkingDirectory=/var/lib/openshift
+EnvironmentFile=-/etc/sysconfig/openshift
+ExecStart=/usr/bin/openshift start master $OPTIONS
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
